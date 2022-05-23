@@ -1,0 +1,14 @@
+CREATE TABLE `comments` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `content` varchar(45) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `visibility` varchar(5) DEFAULT NULL,
+  `UserId` int NOT NULL,
+  `postId` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `UserId_idx` (`UserId`),
+  KEY `postId_idx` (`postId`),
+  CONSTRAINT `postId` FOREIGN KEY (`postId`) REFERENCES `posts` (`id`),
+  CONSTRAINT `UserId` FOREIGN KEY (`UserId`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

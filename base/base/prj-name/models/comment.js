@@ -25,9 +25,9 @@ module.exports = class Comment extends Sequelize.Model {
   }
 
   static associate(db) {
-    //user와 comment는 1:n 관계
+    //user> comment
     db.Comment.belongsTo(db.User, {foreignKey: "UserId", targetKey:'id'});
-    //post와 comment는 1:n 관계
+    //post> comment
     db.Comment.belongsTo(db.Post, {foreignKey: "postId", targetKey:'id'});
     
   }

@@ -62,11 +62,11 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
 });
 
 
-//post<->comment 연결
-//comment의 외래키로 postId필드 사용
-//comment를 1개 생성하면 여기에 연결된 post의 id를 postId가 가지고 있음
-//post로 부터 id 속성을 받아서 같으ㅡㄴ id 를 가지고 있는
-//comment 를 찾음
+// post<->comment 연결
+// comment의 외래키로 postId필드 사용
+// comment를 1개 생성하면 여기에 연결된 post의 id를 postId가 가지고 있음
+// post로 부터 id 속성을 받아서 같으ㅡㄴ id 를 가지고 있는
+// comment 를 찾음
 // router.get('/:id/comment', async (req, res, next) => {
 //   try{
 //     const comments = await Comment.findAll({

@@ -24,100 +24,22 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 //사용자가 get 요청을 보냈을 때
 router.get('/', async (req, res, next) => {
   try {
-    //모든 post 조회
     const posts = await Post.findAll({
-      //관계가 있는 모델을 합쳐서 가져올 수 있음
-      //관련된 모든 게시글 조회
-      //게시글 가져올때 게시글 작성자도 함께 로드
       include: {
-        model: User, //아이디와 닉네임을 사용자를 중심으로 필터링 한 결과 = posts
+        model: User,
         attributes: ['id', 'nick'],
       },
-      
       order: [['createdAt', 'DESC']],
     });
-    const comments = await Comment.findAll({
-      include:{
-        model:Post,
-        attributes: ['id']        
-      }
-    });
-    
-    
-    //화면에 post 보여줌
-    //게시글 조회 후 템플릿 엔진 렌더링
     res.render('main', {
       title: 'prj-name',
-      twits: posts,comments
+      twits: posts,
     });
-    
   } catch (err) {
     console.error(err);
     next(err);
   }
 });
-
-// router.get('/', async (req, res, next) => {
-//   try {
-//     //모든 post 조회
-//     const posts = await Post.findAll({
-//       //관계가 있는 모델을 합쳐서 가져올 수 있음
-//       //관련된 모든 게시글 조회
-//       //게시글 가져올때 게시글 작성자도 함께 로드
-//       include: {
-//         model: User, //아이디와 닉네임을 사용자를 중심으로 필터링 한 결과 = posts
-//         attributes: ['id', 'nick'],
-//       },
-      
-//       order: [['createdAt', 'DESC']],
-//     });
-//     const comments = await Comment.findAll({
-//       include:{
-//         model:Post,
-//         attributes: ['id']        
-//       }
-//     });
-    
-    
-//     //화면에 post 보여줌
-//     //게시글 조회 후 템플릿 엔진 렌더링
-//     res.render('main', {
-//       title: 'prj-name',
-//       twits: posts,comments
-//     });
-    
-//   } catch (err) {
-//     console.error(err);
-//     next(err);
-//   }
-// });
-
-
-//get home page
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const comments = await Comment.findAll({
-//       include: {
-//         model: User,
-//         attributes: ['id'],
-//       },
-//       // include: {
-//       //   model: Post,
-//       //   attributes: ['id'],
-//       // },
-//       order: [['createdAt', 'DESC']],
-//     });
-//     res.render('main', {
-//       title: 'prj-name',
-//       twcomments: comments,
-//     });
-//   } catch (err) {
-//     console.error(err);
-//     next(err);
-//   }
-// });
-
-
 
 router.get('/hashtag', async (req, res, next) => {
   const query = req.query.hashtag;
